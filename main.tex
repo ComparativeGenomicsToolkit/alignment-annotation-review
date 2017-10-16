@@ -60,8 +60,6 @@ Transcript projection uses sequence alignments to project the coordinates of an 
 
 The first tool to perform transcript projection was Projector \cite{meyer2004gene}, which uses a pair hidden Markov model, models exon-intron structure through a pairwise alignment, similar to how tools like TWINSCAN work. However, Projector can make use of the known gene information in one sequence in the alignment to restrict the probability paths to those that match the known gene. A subsequent tool, Annotation Integrated Resource (AIR) \cite{florea2005gene}, introduced the concept of a splice graph, a directed acyclic graphic structure that represents exons as vertices, introns as edges, where isoforms of a gene are paths through this graph. AIR projects transcripts from a reference genome through a syntenic alignment to score the paths in the graph, reducing the large number of combinations that are biologically improbable. 
 
-\textbf{PAIRAGON GOES HERE}
-
 \subsection*{transMap}
 transMap \cite{stanke2008using}, first developed in conjunction with improvements to AUGUSTUS to model extrinsic information \cite{stanke2004augustus}, relies on whole genome alignments to project existing annotations from one genome to the other genome in the alignment. This process is purely arithmetic, but has proven to be immensely helpful at providing extrinsic information to guide AUGUSTUS and improve on purely sequence based prediction. Compared to methods that incorporate EST alignments, transMap provides both full length transcript information as well as isoform information. transMap provided the biggest benefit to specificity in AUGUSTUS predictions in all cases except in cases where the existing cDNA repertoire for the species in question exceeded the quality of the reference.
 
@@ -159,8 +157,6 @@ Program & Year & Description \\
 Projector & 2004 \cite{meyer2004gene} & \\
 \hline
 AIR & 2005 \cite{florea2005gene} & \\
-\hline
-Pairagon & 2006 \cite{arumugam2006pairagon+,lu2009pairagon} & \\
 \hline
 transMap & 2007 \cite{stanke2008using} & Uses whole genome alignments to project existing annotations from one genome to one or more other genomes. \\
 \hline
