@@ -1277,3 +1277,289 @@ journal = {Database}
   year={2006},
   publisher={BioMed Central}
 }
+
+@article{Needleman1970443,
+title = "A general method applicable to the search for similarities in the amino acid sequence of two proteins ",
+journal = "Journal of Molecular Biology ",
+volume = "48",
+number = "3",
+pages = "443 - 453",
+year = "1970",
+note = "",
+issn = "0022-2836",
+doi = "http://dx.doi.org/10.1016/0022-2836(70)90057-4",
+url = "http://www.sciencedirect.com/science/article/pii/0022283670900574",
+author = "Saul B. Needleman and Christian D. Wunsch",
+abstract = "A computer adaptable method for finding similarities in the amino acid sequences of two proteins has been developed. From these findings it is possible to determine whether significant homology exists between the proteins. This information is used to trace their possible evolutionary development. The maximum match is a number dependent upon the similarity of the sequences. One of its definitions is the largest number of amino acids of one protein that can be matched with those of a second protein allowing for all possible interruptions in either of the sequences. While the interruptions give rise to a very large number of comparisons, the method efficiently excludes from consideration those comparisons that cannot contribute to the maximum match. Comparisons are made from the smallest unit of significance, a pair of amino acids, one from each protein. All possible pairs are represented by a two-dimensional array, and all possible comparisons are represented by pathways through the array. For this maximum match only certain of the possible pathways must be evaluated. A numerical value, one in this case, is assigned to every cell in the array representing like amino acids. The maximum match is the largest number that would result from summing the cell values of every pathway. "
+}
+
+@article{Smith1981,
+abstract = {The identification of maximally homologous subsequences among sets of long sequences is an important problem in molecular sequence analysis. The problem is straightforward only if one restricts consideration to contiguous subsequences (segments) containing no internal deletions or insertions. The more general problem has its solution in an extension of sequence metrics (Sellers 1974; Waterman et al., 1976) developed to measure the minimum number of “events” required to convert one sequence into another. These developments in the modern sequence analysis began with the heuristic homology algorithm of Needleman {\&} Wunsch (1970) which first introduced an iterative matrix method of calculation. Numerous other heuristic algorithms have been suggested including those of Fitch (1966) and Dayhoff (1969). More mathemat- ically rigorous algorithms were suggested by Sankoff (1972), Reichert et al. (1973) and Beyer et al. (1979) but these were generally not biologically satisfying or interpretable. Success came with Sellers (1974) development of a true metric measure of the distance between sequences. This metric was later generalized by Waterman et al. (1976) to include deletions/insertions of arbitrary length. This metric represents the minimum number of “mutational events” required to convert one sequence into another. It is of interest to note that Smith et al. (1980) have recently shown that under some conditions the generalized Sellers metric is equivalent to the original homology algorithm of Needleman {\&} Wunsch (1970). In this letter we extend the above ideas to find a pair of segments, one from each of two long sequences, such that there is no other pair of segments with greater similarity (homology). The similarity measure used here allows for arbitrary length deletions and insertions.},
+author = {Smith, T. and Waterman, M.},
+doi = {10.1016/0022-2836(81)90087-5},
+file = {:home/joel/Downloads/1-s2.0-0022283681900875-main.pdf:pdf},
+isbn = {0022-2836},
+issn = {00222836},
+journal = {Journal of Molecular Biology},
+mendeley-groups = {Alignment},
+number = {1},
+pages = {195--197},
+pmid = {7265238},
+title = {{Identification of common molecular subsequences}},
+url = {http://dx.doi.org/10.1016/0022-2836(81)90087-5},
+volume = {147},
+year = {1981}
+}
+
+
+@article{blast,
+author = {Altschul, Stephen and Gish, Warren and Miller, Webb and Myers, Eugene and Lipman, David},
+file = {:home/joel/blast.pdf:pdf},
+journal = {J. Mol. Biol.},
+mendeley-groups = {Alignment},
+pages = {403--410},
+title = {{Basic local alignment search tool}},
+volume = {215},
+year = {1990}
+}
+
+@article{Batzoglou2005,
+abstract = {Starting with the sequencing of the mouse genome in 2002, we have entered a period where the main focus of genomics will be to compare multiple genomes in order to learn about human biology and evolution at the DNA level. Alignment methods are the main computational component of this endeavour. This short review aims to summarise the current status of research in alignments, emphasising large-scale genomic comparisons and suggesting possible directions that will be explored in the near future.},
+author = {Batzoglou, S},
+doi = {10.1093/bib/6.1.6},
+file = {:home/joel/Dropbox/articles/2005{\_}ReviewSequenceAlignment.pdf:pdf},
+isbn = {1467-5463 (Print)},
+issn = {1467-5463},
+journal = {Brief Bioinform},
+keywords = {Algorithms,Animals,Conserved Sequence,Humans,Models, Genetic,Models, Statistical,Pattern Recognition, Automated/ methods/trends,Sequence Alignment/ methods/ trends,Sequence Analysis, DNA/ methods/trends,Sequence Analysis, Protein/ methods/trends,Sequence Homology},
+mendeley-groups = {Alignment},
+number = {1},
+pages = {6--22},
+pmid = {15826353},
+title = {{The many faces of sequence alignment}},
+volume = {6},
+year = {2005}
+}
+
+
+@article{avid,
+abstract = {In this paper we describe a new global alignment method called AVID. The method is designed to be fast, memory efficient, and practical for sequence alignments of large genomic regions up to megabases long. We present numerous applications of the method, ranging from the comparison of assemblies to alignment of large syntenic genomic regions and whole genome human/mouse alignments. We have also performed a quantitative comparison of AVID with other popular alignment tools. To this end, we have established a format for the representation of alignments and methods for their comparison. These formats and methods should be useful for future studies. The tools we have developed for the alignment comparisons, as well as the AVID program, are publicly available. See Web Site References section for AVID Web address and Web addresses for other programs discussed in this paper.},
+annote = {A method that selects order-and-orientation preserving anchors and does Needleman-Wunsch alignment between anchors.},
+author = {Bray, Nick and Dubchak, Inna and Pachter, Lior},
+doi = {10.1101/gr.789803},
+file = {:home/joel/Downloads/Genome Res.-2003-Bray-97-102.pdf:pdf},
+isbn = {1088-9051 (Print)$\backslash$r1088-9051 (Linking)},
+issn = {10889051},
+journal = {Genome research},
+mendeley-groups = {Alignment},
+number = {1},
+pages = {97--102},
+pmid = {12529311},
+title = {{AVID: A global alignment program.}},
+volume = {13},
+year = {2003}
+}
+
+
+@article{mummer,
+abstract = {A new system for aligning whole genome sequences is described. Using an efficient data structure called a suffix tree, the system is able to rapidly align sequences containing millions of nucleotides. Its use is demonstrated on two strains of Mycoplasma tuberculosis, on two less similar species of Mycoplasma bacteria and on two syntenic sequences from human chromosome 12 and mouse chromosome 6. In each case it found an alignment of the input sequences, using between 30 s and 2 min of computation time. From the system output, information on single nucleotide changes, translocations and homologous genes can easily be extracted. Use of the algorithm should facilitate analysis of syntenic chromosomal regions, strain-to-strain comparisons, evolutionary comparisons and genomic duplications.},
+annote = {original mummer paper},
+author = {Delcher, Arthur L. and Kasif, Simon and Fleischmann, Robert D. and Peterson, Jeremy and White, Owen and Salzberg, Steven L.},
+doi = {10.1093/nar/27.11.2369},
+file = {:home/joel/Downloads/MUMmer.pdf:pdf},
+isbn = {0305-1048 (Print)$\backslash$n0305-1048 (Linking)},
+issn = {03051048},
+journal = {Nucleic Acids Research},
+mendeley-groups = {Alignment},
+number = {11},
+pages = {2369--2376},
+pmid = {10325427},
+title = {{Alignment of whole genomes}},
+volume = {27},
+year = {1999}
+}
+
+@article{lagan,
+abstract = {To compare entire genomes from different species, biologists increasingly need alignment methods that are efficient enough to handle long sequences, and accurate enough to correctly align the conserved biological features between distant species. We present LAGAN, a system for rapid global alignment of two homologous genomic sequences, and Multi-LAGAN, a system for multiple global alignment of genomic sequences. We tested our systems on a data set consisting of greater than 12 Mb of high-quality sequence from 12 vertebrate species. All the sequence was derived from the genomic region orthologous to an approximately 1.5-Mb region on human chromosome 7q31.3. We found that both LAGAN and Multi-LAGAN compare favorably with other leading alignment methods in correctly aligning protein-coding exons, especially between distant homologs such as human and chicken, or human and fugu. Multi-LAGAN produced the most accurate alignments, while requiring just 75 minutes on a personal computer to obtain the multiple alignment of all 12 sequences. Multi-LAGAN is a practical method for generating multiple alignments of long genomic sequences at any evolutionary distance. Our systems are publicly available at http://lagan.stanford.edu.},
+author = {Brudno, Michael and Do, Chuong B. and Cooper, Gregory M. and Kim, Michael F. and Davydov, Eugene and Green, Eric D. and Sidow, Arend and Batzoglou, Serafim},
+doi = {10.1101/gr.926603},
+file = {:home/joel/Downloads/Genome Res.-2003-Brudno-721-31.pdf:pdf},
+isbn = {1088-9051 (Print)$\backslash$r1088-9051 (Linking)},
+issn = {10889051},
+journal = {Genome Research},
+mendeley-groups = {Alignment},
+number = {4},
+pages = {721--731},
+pmid = {12654723},
+title = {{LAGAN and Multi-LAGAN: Efficient tools for large-scale multiple alignment of genomic DNA}},
+volume = {13},
+year = {2003}
+}
+
+@article{evoCauldron,
+abstract = {This study examines genomic duplications, deletions, and rearrangements that have happened at scales ranging from a single base to complete chromosomes by comparing the mouse and human genomes. From whole-genome sequence alignments, 344 large (>100-kb) blocks of conserved synteny are evident, but these are further fragmented by smaller-scale evolutionary events. Excluding transposon insertions, on average in each megabase of genomic alignment we observe two inversions, 17 duplications (five tandem or nearly tandem), seven transpositions, and 200 deletions of 100 bases or more. This includes 160 inversions and 75 duplications or transpositions of length >100 kb. The frequencies of these smaller events are not substantially higher in finished portions in the assembly. Many of the smaller transpositions are processed pseudogenes; we define a "syntenic" subset of the alignments that excludes these and other small-scale transpositions. These alignments provide evidence that approximately 2{\%} of the genes in the human/mouse common ancestor have been deleted or partially deleted in the mouse. There also appears to be slightly less nontransposon-induced genome duplication in the mouse than in the human lineage. Although some of the events we detect are possibly due to misassemblies or missing data in the current genome sequence or to the limitations of our methods, most are likely to represent genuine evolutionary events. To make these observations, we developed new alignment techniques that can handle large gaps in a robust fashion and discriminate between orthologous and paralogous alignments.},
+author = {Kent, W James and Baertsch, Robert and Hinrichs, Angie and Miller, Webb and Haussler, David},
+doi = {10.1073/pnas.1932072100},
+file = {:home/joel/Downloads/PNAS-2003-Kent-11484-9.pdf:pdf},
+isbn = {0027-8424 (Print)$\backslash$r0027-8424 (Linking)},
+issn = {0027-8424},
+journal = {Proceedings of the National Academy of Sciences of the United States of America},
+number = {20},
+pages = {11484--11489},
+pmid = {14500911},
+title = {{Evolution's cauldron: duplication, deletion, and rearrangement in the mouse and human genomes.}},
+volume = {100},
+year = {2003}
+}
+
+
+@article{blastz,
+abstract = {The Mouse Genome Analysis Consortium aligned the human and mouse genome sequences for a variety of purposes, using alignment programs that suited the various needs. For investigating issues regarding genome evolution, a particularly sensitive method was needed to permit alignment of a large proportion of the neutrally evolving regions. We selected a program called BLASTZ, an independent implementation of the Gapped BLAST algorithm specifically designed for aligning two long genomic sequences. BLASTZ was subsequently modified, both to attain efficiency adequate for aligning entire mammalian genomes and to increase its sensitivity. This work describes BLASTZ, its modifications, the hardware environment on which we run it, and several empirical studies to validate its results.},
+author = {Schwartz, Scott and Kent, W James and Smit, Arian and Zhang, Zheng and Baertsch, Robert and Hardison, Ross C and Haussler, David and Miller, Webb},
+doi = {10.1101/gr.809403.},
+file = {:home/joel/Downloads/Genome Res.-2003-Schwartz-103-7.pdf:pdf},
+isbn = {1088-9051},
+issn = {1088-9051},
+journal = {Genome Research},
+mendeley-groups = {Alignment},
+number = {1},
+pages = {103--107},
+pmid = {12529312},
+title = {{Human–Mouse Alignments with BLASTZ}},
+volume = {13},
+year = {2003}
+}
+
+@article{tba,
+abstract = {We define a "threaded blockset," which is a novel generalization of the classic notion of a multiple alignment. A new computer program called TBA (for "threaded blockset aligner") builds a threaded blockset under the assumption that all matching segments occur in the same order and orientation in the given sequences; inversions and duplications are not addressed. TBA is designed to be appropriate for aligning many, but by no means all, megabase-sized regions of multiple mammalian genomes. The output of TBA can be projected onto any genome chosen as a reference, thus guaranteeing that different projections present consistent predictions of which genomic positions are orthologous. This capability is illustrated using a new visualization tool to view TBA-generated alignments of vertebrate Hox clusters from both the mammalian and fish perspectives. Experimental evaluation of alignment quality, using a program that simulates evolutionary change in genomic sequences, indicates that TBA is more accurate than earlier programs. To perform the dynamic-programming alignment step, TBA runs a stand-alone program called MULTIZ, which can be used to align highly rearranged or incompletely sequenced genomes. We describe our use of MULTIZ to produce the whole-genome multiple alignments at the Santa Cruz Genome Browser.},
+author = {Blanchette, Mathieu and Kent, W. James and Riemer, Cathy and Elnitski, Laura and Smith, Arian F A and Roskin, Krishna M. and Baertsch, Robert and Rosenbloom, Kate and Clawson, Hiram and Green, Eric D. and Haussler, David and Miller, Webb},
+doi = {10.1101/gr.1933104},
+file = {:home/joel/Downloads/708.full.pdf:pdf;:home/joel/Downloads/Blanchette-19331{\_}supp.doc:doc},
+isbn = {1088-9051 (Print)$\backslash$r1088-9051 (Linking)},
+issn = {10889051},
+journal = {Genome Research},
+mendeley-groups = {Alignment},
+number = {4},
+pages = {708--715},
+pmid = {15060014},
+title = {{Aligning multiple genomic sequences with the threaded blockset aligner}},
+volume = {14},
+year = {2004}
+}
+
+
+@article{recipBestOrtholog,
+abstract = {It is common to use reciprocal best hits, also known as a boomerang criterion, for determining orthology between sequences. The best hits may be found by blast, or by other more recently developed algorithms. Previous work seems to have assumed that reciprocal best hits is a sufficient but not necessary condition for orthology. In this article, I explain why reciprocal best hits cannot logically be a sufficient condition for orthology. If reciprocal best hits is neither sufficient nor necessary for orthology, it would seem worthwhile to examine further the logical foundations of some unsupervised algorithms that are used to identify orthologs.},
+archivePrefix = {arXiv},
+arxivId = {0706.0117},
+author = {Johnson, Toby},
+eprint = {0706.0117},
+file = {:home/joel/Downloads/0706.0117.pdf:pdf},
+keywords = {blast,orthologs,reciprocal best hits},
+mendeley-groups = {Alignment},
+number = {2},
+pages = {1--8},
+title = {{Reciprocal best hits are not a logically sufficient condition for orthology}},
+url = {http://arxiv.org/abs/0706.0117},
+volume = {5},
+year = {2007}
+}
+
+
+@article{Koonin2005,
+author = {Koonin, Eugene V.},
+doi = {10.1146/annurev.genet.39.073003.114725},
+file = {:home/joel/Downloads/annurev{\%}2Egenet{\%}2E39{\%}2E073003{\%}2E114725.pdf:pdf},
+issn = {0066-4197},
+journal = {Annual Review of Genetics},
+keywords = {homolog,ortholog,paralog,pseudoortholog,pseudoparalog},
+number = {1},
+pages = {309--338},
+title = {{Orthologs, Paralogs, and Evolutionary Genomics}},
+volume = {39},
+year = {2005}
+}
+
+@article{complexityOfMultipleAlignment,
+abstract = {We study the computational complexity of two popular problems in multiple sequence align- ment: multiple alignment with SP-score and multiple tree alignment. It is shown that the first problem is NP-complete and the second is MAX SNP-hard. The complexity of tree alignment with a given phylogeny is also considered.},
+author = {Jiang, T and Wang, L},
+file = {:home/joel/Downloads/cmb{\%}2E1994{\%}2E1{\%}2E337.pdf:pdf},
+journal = {Journal of Computational Biology},
+keywords = {approxi-,computational complexity,evolutionary tree,multiple sequence alignment,sp-score},
+mendeley-groups = {Alignment},
+pages = {337--348},
+title = {{On the complexity of multiple sequence alignment}},
+volume = {1},
+year = {1994}
+}
+
+@article{progressiveAlignment,
+abstract = {A progressive alignment method is described that utilizes the Needleman and Wunsch pairwise alignment algorithm iteratively to achieve the multiple alignment of a set of protein sequences and to construct an evolutionary tree depicting their relationship. The sequences are assumed a priori to share a common ancestor, and the trees are constructed from difference matrices derived directly from the multiple alignment. The thrust of the method involves putting more trust in the comparison of recently diverged sequences than in those evolved in the distant past. In particular, this rule is followed: "once a gap, always a gap." The method has been applied to three sets of protein sequences: 7 superoxide dismutases, 11 globins, and 9 tyrosine kinase-like sequences. Multiple alignments and phylogenetic trees for these sets of sequences were determined and compared with trees derived by conventional pairwise treatments. In several instances, the progressive method led to trees that appeared to be more in line with biological expectations than were trees obtained by more commonly used methods.},
+annote = {first progressive alignment paper (?)},
+author = {Feng, D F and Doolittle, R F},
+doi = {061/6},
+file = {:home/joel/Downloads/art{\%}3A10.1007{\%}2FBF02603120.pdf:pdf},
+isbn = {0022-2844 (Print)$\backslash$r0022-2844 (Linking)},
+issn = {0022-2844},
+journal = {Journal of molecular evolution},
+mendeley-groups = {Alignment},
+number = {4},
+pages = {351--360},
+pmid = {3118049},
+title = {{Progressive sequence alignment as a prerequisite to correct phylogenetic trees.}},
+volume = {25},
+year = {1987}
+}
+
+@article{epo,
+abstract = {Pairwise whole-genome alignment involves the creation of a homology map, capable of performing a near complete transformation of one genome into another. For multiple genomes this problem is generalized to finding a set of consistent homology maps for converting each genome in the set of aligned genomes into any of the others. The problem can be divided into two principal stages. First, the partitioning of the input genomes into a set of colinear segments, a process which essentially deals with the complex processes of rearrangement. Second, the generation of a base pair level alignment map for each colinear segment. We have developed a new genome-wide segmentation program, Enredo, which produces colinear segments from extant genomes handling rearrangements, including duplications. We have then applied the new alignment program Pecan, which makes the consistency alignment methodology practical at a large scale, to create a new set of genome-wide mammalian alignments. We test both Enredo and Pecan using novel and existing assessment analyses that incorporate both real biological data and simulations, and show that both independently and in combination they outperform existing programs. Alignments from our pipeline are publicly available within the Ensembl genome browser.},
+author = {Paten, Benedict and Herrero, Javier and Beal, Kathryn and Fitzgerald, Stephen and Birney, Ewan},
+doi = {10.1101/gr.076554.108},
+file = {:Users/joel/Library/Application Support/Mendeley Desktop/Downloaded/Paten et al. - 2008 - Enredo and Pecan genome-wide mammalian consistency-based multiple alignment with paralogs.pdf:pdf},
+isbn = {1088-9051 (Print)$\backslash$r1088-9051 (Linking)},
+issn = {1088-9051},
+journal = {Genome research},
+keywords = {Animals,Chromosome Mapping,Chromosome Mapping: statistics {\&} numerical data,Chromosomes,Computer Graphics,Computer Simulation,Databases,Exons,Gene Duplication,Gene Rearrangement,Genetic,Genomics,Genomics: statistics {\&} numerical data,Human,Humans,Mammals,Mammals: genetics,Sequence Alignment,Sequence Alignment: statistics {\&} numerical data,Software,X,X: genetics},
+mendeley-groups = {Alignment},
+number = {11},
+pages = {1814--28},
+pmid = {18849524},
+title = {{Enredo and Pecan: genome-wide mammalian consistency-based multiple alignment with paralogs.}},
+url = {http://genome.cshlp.org.ezp-prod1.hul.harvard.edu/content/18/11/1814},
+volume = {18},
+year = {2008}
+}
+
+@article{aBruijn,
+abstract = {We describe ABA (A-Bruijn alignment), a new method for multiple alignment of biological sequences. The major difference between ABA and existing multiple alignment methods is that ABA represents an alignment as a directed graph, possibly containing cycles. This representation provides more flexibility than does a traditional alignment matrix or the recently introduced partial order alignment (POA) graph by allowing a larger class of evolutionary relationships between the aligned sequences. Our graph representation is particularly well-suited to the alignment of protein sequences with shuffled and/or repeated domain structure, and allows one to construct multiple alignments of proteins containing (1) domains that are not present in all proteins, (2) domains that are present in different orders in different proteins, and (3) domains that are present in multiple copies in some proteins. In addition, ABA is useful in the alignment of genomic sequences that contain duplications and inversions. We provide several examples illustrating the applications of ABA.},
+annote = {AKA the A-Bruijn graph paper},
+author = {Raphael, Benjamin and Zhi, Degui and Tang, Haixu and Pevzner, Pavel},
+doi = {10.1101/gr.2657504},
+file = {:Users/joel/Library/Application Support/Mendeley Desktop/Downloaded/Raphael et al. - 2004 - A novel method for multiple alignment of sequences with repeated and shuffled elements.pdf:pdf},
+isbn = {1088-9051 (Print)$\backslash$n1088-9051 (Linking)},
+issn = {10889051},
+journal = {Genome Research},
+mendeley-groups = {Alignment},
+number = {11},
+pages = {2336--2346},
+pmid = {15520295},
+title = {{A novel method for multiple alignment of sequences with repeated and shuffled elements}},
+volume = {14},
+year = {2004}
+}
+
+@article{ensembl2017,
+abstract = {Ensembl (www.ensembl.org) is a database and genome browser for enabling research on vertebrate genomes. We import, analyse, curate and integrate a diverse collection of large-scale reference data to create a more comprehensive view of genome biology than would be possible from any individual dataset. Our extensive data resources include evidence-based gene and regulatory region annotation, genome variation and gene trees. An accompanying suite of tools, infrastructure and programmatic access methods ensure uniform data analysis and distribution for all supported species. Together, these provide a comprehensive solution for large-scale and targeted genomics applications alike. Among many other developments over the past year, we have improved our resources for gene regulation and comparative genomics, and added CRISPR/Cas9 target sites. We released new browser functionality and tools, including improved filtering and prioritization of genome variation, Manhattan plot visualization for linkage disequilibrium and eQTL data, and an ontology search for phenotypes, traits and disease. We have also enhanced data discovery and access with a track hub registry and a selection of new REST end points. All Ensembl data are freely released to the scientific community and our source code is available via the open source Apache 2.0 license.},
+author = {Aken, Bronwen L. and Achuthan, Premanand and Akanni, Wasiu and Amode, M. Ridwan and Bernsdorff, Friederike and Bhai, Jyothish and Billis, Konstantinos and Carvalho-Silva, Denise and Cummins, Carla and Clapham, Peter and Gil, Laurent and Gir{\'{o}}n, Carlos Garc{\'{i}}a and Gordon, Leo and Hourlier, Thibaut and Hunt, Sarah E. and Janacek, Sophie H. and Juettemann, Thomas and Keenan, Stephen and Laird, Matthew R. and Lavidas, Ilias and Maurel, Thomas and McLaren, William and Moore, Benjamin and Murphy, Daniel N. and Nag, Rishi and Newman, Victoria and Nuhn, Michael and Ong, Chuang Kee and Parker, Anne and Patricio, Mateus and Riat, Harpreet Singh and Sheppard, Daniel and Sparrow, Helen and Taylor, Kieron and Thormann, Anja and Vullo, Alessandro and Walts, Brandon and Wilder, Steven P. and Zadissa, Amonida and Kostadima, Myrto and Martin, Fergal J. and Muffato, Matthieu and Perry, Emily and Ruffier, Magali and Staines, Daniel M. and Trevanion, Stephen J. and Cunningham, Fiona and Yates, Andrew and Zerbino, Daniel R. and Flicek, Paul},
+doi = {10.1093/nar/gkw1104},
+file = {:Users/joel/Downloads/gkw1104.pdf:pdf},
+isbn = {13624962 (Electronic)},
+issn = {13624962},
+journal = {Nucleic Acids Research},
+number = {D1},
+pages = {D635--D642},
+pmid = {27899575},
+title = {{Ensembl 2017}},
+volume = {45},
+year = {2017}
+}

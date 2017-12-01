@@ -23,6 +23,105 @@ TBA
 
 \thispagestyle{empty}
 
+\section*{Introduction}
+\subsection*{Whole-genome alignments}
+Alignment is possibly the most fundamental problem in genomics.
+The alignment problem is to establish a mapping between the letters of a set of sequences that approximates some relation that the user is interested in.
+In comparative genomics, we are generally interested in the \emph{homology} relation---that is, does the lineage of two bases coalesce at a single base in a single organism at some point in time?
+In typical real-world comparative genomics, there is no clear proof of homology, as we have absolutely no access to the true history of every base in a set of sequences.
+However, we can use our knowledge of molecular evolution to construct very good approximations to the homology relation.
+The potential for using sequence similarity to approximate homology was recognized and applied very early on, starting with the pioneering work of Needleman and Wunsch on optimal pairwise global alignment~\cite{Needleman1970443}.
+The pairwise global alignment work was quickly specialized to perform \emph{local alignment}, which calculates the optimal alignment of subsequences rather than sequences, by Smith and Waterman~\cite{Smith1981}.
+
+The \emph{whole-genome alignment} problem involves aligning two or more genomes, or other large sequences or set of sequences, together.
+While whole-genome alignment is essentially just alignment writ large, it is generally treated differently than short sequence alignment because two factors not usually considered in short alignments become impossible to ignore: size and rearrangements.
+The size of the problem in whole-genome alignment causes alignments to take too long to be practical, forcing efficiency considerations to be taken into account.
+The traditional dynamic-programming algorithms require $O(nm)$ time and space, where $n$ and $m$ are the lengths of the two sequences; obviously, as $n$ and $m$ grow to genome-scale the problem becomes too expensive to solve in practice.
+Another consideration is how genome rearrangements complicate the alignment problem.
+Smith-Waterman and Needleman-Wunsch both produce alignments which have \emph{fixed order-and-orientation}, that is, insertions, deletions, and substitutions are the only allowed edit operations.
+When looking at short or well-conserved sequences, like genes, this requirement is usually fulfilled.
+But at large evolutionary distances, genomes almost always contain rearrangements with respect to each other---inversions, transpositions, and duplications all cause breaks in order and orientation that cannot be captured under constant order and orientation.
+
+One obvious solution to these problems is to use a fast approximate local alignment algorithm (like BLAST~\cite{blast}) and simply use the collection of all local alignments that it finds as the whole-genome alignment.
+However, the naïve local alignment approach has its own problems.
+Whole-genome local alignments have both too low sensitivity and too low specificity to be useful at substantial evolutionary distances.
+That is, local alignments will miss homologous sequence that, by chance, happened to be further diverged.
+They will also capture spurious alignments that can obscure the more useful data.
+Even when they correctly identify homologous regions, the end-user is more often interested in \emph{orthology} rather than homology: ancient duplications may share similar sequence, but often do not share similar function.
+We call any alignment that allows rearrangements (i.e.\ does not have fixed order-and-orientation) and attempts to determine orthology rather than just homology (even if restricted to single-copy) a \emph{whole-genome alignment} (or for short, a \emph{genome alignment}).
+Most whole-genome alignment methods are based on local alignments, but do some filtering and post-processing to construct a useful end product~\cite{Batzoglou2005}.
+
+As long DNA sequences became available, it was soon recognized that Needleman-Wunsch or Smith-Waterman alignments were far too slow to be useful for megabase-scale sequences, much less chromosome-scale sequences.
+The impractical running time of global alignment drove the development of several tools~\cite{avid,mummer,lagan} that produce an approximately optimal global alignment through the use of high-confidence \emph{anchors} in a single order and orientation, which are then used to partition the alignment into smaller problems which can be more efficiently solved.
+These anchors provided a very efficient and reliable way to break up the alignment problem, but relied on a constant order and orientation, which excluded any possibility of noticing rearrangements.
+
+\emph{Chaining}~\cite{evoCauldron} is a powerful technique for making sense of pairwise local alignments.
+Chains are simply maximal combinations of local alignments that maintain a single order and orientation.
+Chaining provides a good way of filtering out spurious alignments, which are likely to form short, low-scoring chains.
+However, the set of chains can often include distant paralogs or spurious sequence, which makes it difficult to understand the rearrangements that have taken place between the two input genomes.
+\emph{Netting}~\cite{evoCauldron} is a related technique that makes rearrangements relative to a reference genome much easier to find.
+In essence, netting finds the best-scoring set of chains that covers the bases of the reference genome only once.
+This makes it very easy to find high-confidence rearrangements like transpositions, inversions, and deletions, but throws away the effect of duplications in the target genome.
+
+
+Choosing the single ``best'' target alignment for each region, which we will call the \emph{single-copy} strategy, is a common way~\cite{blastz,tba} to deal with the problems that duplications cause.
+However, the best-fit strategy will not always find a correct ortholog, and indeed even reciprocally-best-fit is not enough to guarantee finding an ortholog~\cite{recipBestOrtholog}.
+But most importantly, lineage-specific duplications should not be ignored.
+When lineage-specific duplication occurs, a gene outside that lineage will have \emph{multiple} orthologs in the lineage, and should be aligned to multiple copies~\cite{Koonin2005}.
+Single-copy alignments implicitly assume that orthology is a one-to-one relationship.
+However, in nature, orthology is a many-to-many relationship~\cite{Koonin2005}.
+When that assumption of one-to-one orthology is violated, single-copy alignments can be very misleading.
+\subsection*{Multiple alignment}
+Often it is necessary to consider the alignment between a set of more than two sequences, which we call \emph{multiple alignment}.
+A multiple alignment is defined as an equivalence relation $\sim$ on a set of sequences $\mathcal{S} = \{s_1, s_2, \ldots\}$, such that for two bases $b_1 \in s_1 \in \mathcal{S}$ and $b_2 \in s_2 \in \mathcal{S}$, $b_1 \sim b_2$ if they are considered to be aligned to each other.
+The alignment is partitioned into \emph{columns} by the equivalence classes of $\sim$: i.e.\ every base is related to all bases in its column, and no two bases in different columns are related.
+
+Unfortunately, multiple alignment is a significantly more difficult problem than pairwise alignment.
+Finding an optimal multiple alignment, even using very simple objective functions, has long been known to be NP-hard~\cite{complexityOfMultipleAlignment}.
+Heuristics must be employed to efficiently solve the multiple alignment problem.
+
+\emph{Progressive alignment} is the most popular strategy for approximate multiple alignment~\cite{progressiveAlignment}.
+Progressive alignment uses as an additional input a \emph{guide tree} relating the input sequences.
+The most closely related sequences are aligned first, then the resulting alignment is itself aligned to other sequences or alignments, following the structure of the guide tree. Often consensus sequences are used as a method of aligning alignments.
+
+Since the multiple alignment problem is so difficult, another approach is to use a single \emph{reference} sequence to base the alignment on.
+All other sequences in the multiple alignment are simply aligned to this genome in a pairwise fashion, then the several pairwise alignments are combined to form a \emph{reference-biased} multiple alignment.
+This approach performs very well when viewed from the reference genome, but information relating genomes distant from the reference is lost.
+See \figref{fig:referencefree} for an illustration of this effect.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{reference-free-diagram}
+\caption{A diagram showing the difference between a reference-free and a reference-biased multiple alignment. In a human-biased multiple alignment, any regions that are deleted in human, or inserted somewhere else in the tree, cannot be aligned.}\label{fig:referencefree}
+\end{center}
+\end{figure}
+
+In the mid- to late-2000s the first methods for reference-free multiple genome alignment allowing multiple copies began to appear (notably the Enredo-Pecan-Ortheus (EPO) pipeline~\cite{epo} and the A-Bruijn aligner~\cite{aBruijn}).
+The EPO pipeline especially began to see wide use as part of the Ensembl genome browser~\cite{ensembl2017}.
+While impressive, these pipelines left significant room for improvement, especially with regard to finding small-scale order-and-orientation-breaking rearrangements~\cite{epo}.
+\subsection*{Genome histories}
+Alignments are conventionally described as a set of columns, each containing a set of bases that are all related to each other by some alignment relation $\sim$.
+Usually this relation represents orthology rather than homology.
+However, in that case, this model falls apart when considering reference-free alignments with multiple copies per genome.
+The orthology relation is not transitively closed~\cite{Koonin2005}, so it is impossible in the general case to create a set of columns containing bases that are all orthologous to each other.
+The only way to represent a reference-free, multi-copy, orthologous multiple genome alignment is by associating the alignment with phylogenetic trees, which are inferred (even if implicitly) during the alignment process.
+We term these types of alignments \emph{genome histories} to reflect that they require a different representation than typical alignments (which can be represented by a collection of only blocks or columns).
+
+A \emph{genome history} $\{\mathcal{S}, \sim, T_c, t_s, L\}$ consists of a set of genomes $\mathcal{S}$, a multiple alignment $\sim$ relating the bases of those genomes, a reconciled tree $t \in T_c$ for each column in that alignment, a species tree $t_s$, and, optionally, a set of \emph{links} $L$ between columns, indicating the ordering of the ancestral chromosomes.
+The columns of the genome history reflect the \emph{homology} rather than \emph{orthology} relation.
+Since homology is transitive, the homology-based alignment can be represented by columns.
+The set of trees (hereafter referred to as \emph{column trees}) indicate the evolutionary history of the bases in each column.
+Where there are duplications, gains, or losses, the column tree $t \in T_c$ will differ from the species tree $t_s$.
+Though the genome history representation we present here is not the only possible representation, any other representation (such as a collection of all pairwise orthology relationships) can be transformed into this one.
+
+A genome history can be used to define both \emph{orthology} and \emph{paralogy} relations.
+The orthology relation, which we will symbolize by $\sim_o$, uses the column trees of the genome history to determine which of the homologous bases in a column are also orthologous to each other.
+The orthologous bases are those homologous bases whose lineage coalesces in a speciation event in the column tree~\cite{Koonin2005}.
+The paralogy relation $\sim_p$ simply relates homologous bases which are not orthologs.
+
+A genome history can be \emph{projected} onto any genome to create a more conventional referenced multiple alignment.
+These projected, reference-based alignments are collections of columns, each containing exactly one reference base, where every base in the column is orthologous to the reference base, but \emph{not} necessarily orthologous to every other base in the column.
+These projected alignments are useful because they can be represented in conventional formats like MAF, and used as input to existing analysis tools.
 
 \section*{Introduction}
 
