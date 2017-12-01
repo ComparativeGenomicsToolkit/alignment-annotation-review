@@ -1,5 +1,5 @@
 \documentclass[fleqn,10pt]{wlscirep}
-\title{Comparative Annotation}
+\title{Whole Genome Alignment And Comparative Annotation}
 \usepackage{indentfirst}
 \author[1,+]{Ian Fiddes}
 \author[1,+]{Joel Armstrong}
@@ -23,8 +23,8 @@ TBA
 
 \thispagestyle{empty}
 
-\section*{Introduction}
-\subsection*{Whole-genome alignments}
+\section{Whole-genome alignments}
+\subsection{Introduction}
 Alignment is possibly the most fundamental problem in genomics.
 The alignment problem is to establish a mapping between the letters of a set of sequences that approximates some relation that the user is interested in.
 In comparative genomics, we are generally interested in the \emph{homology} relation---that is, does the lineage of two bases coalesce at a single base in a single organism at some point in time?
@@ -71,7 +71,8 @@ When lineage-specific duplication occurs, a gene outside that lineage will have 
 Single-copy alignments implicitly assume that orthology is a one-to-one relationship.
 However, in nature, orthology is a many-to-many relationship~\cite{Koonin2005}.
 When that assumption of one-to-one orthology is violated, single-copy alignments can be very misleading.
-\subsection*{Multiple alignment}
+
+\subsection{Multiple alignment}
 Often it is necessary to consider the alignment between a set of more than two sequences, which we call \emph{multiple alignment}.
 A multiple alignment is defined as an equivalence relation $\sim$ on a set of sequences $\mathcal{S} = \{s_1, s_2, \ldots\}$, such that for two bases $b_1 \in s_1 \in \mathcal{S}$ and $b_2 \in s_2 \in \mathcal{S}$, $b_1 \sim b_2$ if they are considered to be aligned to each other.
 The alignment is partitioned into \emph{columns} by the equivalence classes of $\sim$: i.e.\ every base is related to all bases in its column, and no two bases in different columns are related.
@@ -86,20 +87,13 @@ The most closely related sequences are aligned first, then the resulting alignme
 
 Since the multiple alignment problem is so difficult, another approach is to use a single \emph{reference} sequence to base the alignment on.
 All other sequences in the multiple alignment are simply aligned to this genome in a pairwise fashion, then the several pairwise alignments are combined to form a \emph{reference-biased} multiple alignment.
-This approach performs very well when viewed from the reference genome, but information relating genomes distant from the reference is lost.
-See \figref{fig:referencefree} for an illustration of this effect.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.75\textwidth]{reference-free-diagram}
-\caption{A diagram showing the difference between a reference-free and a reference-biased multiple alignment. In a human-biased multiple alignment, any regions that are deleted in human, or inserted somewhere else in the tree, cannot be aligned.}\label{fig:referencefree}
-\end{center}
-\end{figure}
+This approach performs very well when viewed from the reference genome, but information relating genomes distant from the reference is lost. See \ref{fig:referencefree} for an illustration of this effect.
 
 In the mid- to late-2000s the first methods for reference-free multiple genome alignment allowing multiple copies began to appear (notably the Enredo-Pecan-Ortheus (EPO) pipeline~\cite{epo} and the A-Bruijn aligner~\cite{aBruijn}).
 The EPO pipeline especially began to see wide use as part of the Ensembl genome browser~\cite{ensembl2017}.
 While impressive, these pipelines left significant room for improvement, especially with regard to finding small-scale order-and-orientation-breaking rearrangements~\cite{epo}.
-\subsection*{Genome histories}
+
+\subsection{Genome histories}
 Alignments are conventionally described as a set of columns, each containing a set of bases that are all related to each other by some alignment relation $\sim$.
 Usually this relation represents orthology rather than homology.
 However, in that case, this model falls apart when considering reference-free alignments with multiple copies per genome.
@@ -123,8 +117,23 @@ A genome history can be \emph{projected} onto any genome to create a more conven
 These projected, reference-based alignments are collections of columns, each containing exactly one reference base, where every base in the column is orthologous to the reference base, but \emph{not} necessarily orthologous to every other base in the column.
 These projected alignments are useful because they can be represented in conventional formats like MAF, and used as input to existing analysis tools.
 
-\section{Introduction}
+\subsection{Reference-free alignment}
 
+\subsubsection{HAL format}
+
+\subsection{Whole genome alignment tools}
+lastz, last, blastz, etc
+
+\subsection{Multiple genome alignment pipelines}
+
+\subsubsection{multiz}
+
+\subsubsection{cactus}
+
+\subsubsection{progressiveCactus}
+
+\section{Comparative annotation}
+\subsection{Introduction}
 Genome annotation is the process of finding functional elements in a genome assembly. Generally, these take the form of protein coding genes, but can also include non-coding transcripts\cite{harrow2012gencode}, chromatin configuration, DNase hypersensitivity\cite{encode2004encode}, CpG islands, and population variation \cite{sherry2001dbsnp}.
 
 The task of automatically annotating genome assemblies has been considered since the first full length genomes were released in the mid-1990s \cite{letovsky1998gdb,lukashin1998genemark,haussler1996generalized}. This task is often divided into two categories -- \textit{ab-initio} prediction, or the computational prediction of exon-intron structure using statistical models, and sequence alignment based approaches, which map any of EST, cDNA or protein sequences on to an assembled sequence to discover transcripts \cite{Aken01012016}. Some annotation pipelines combine both sources of transcript prediction to generate a final annotation set \cite{pruitt2006ncbi,cantarel2008maker}.
@@ -133,7 +142,7 @@ Recent improvements in sequencing technologies, including long-read \cite{gordon
 
 This rapid increase in the availability of high quality genome assemblies necessitates the introduction of automated methods that can scale, and that can leverage the improved phylogenetic information that such an array of assemblies can provide. For example, the 200 Mammals Project is specifically designed to allow for the calculation of base-level conservation across mammalian evolutionary history. This discriminatory power can be leveraged downstream of the assemblies to improve whole genome alignments as well as annotations, and it provides a framework for annotating true many-to-many orthology relationships instead of the current models that rely heavily on annotating relationships relative to mouse and human.
 
-\section{Sequence Based Comparative Annotation}
+\subsection{Sequence Based Comparative Annotation}
 
 In conjunction with the release of the first mouse draft assembly\cite{waterston2002initial}, multiple different tools were created to try and leverage comparative information to human to look for genes, including TWINSCAN \cite{flicek2003leveraging}, SGP \cite{wiehe2001sgp} and SLAM \cite{alexandersson2003slam}. \textbf{Table \ref{tab:history}} provides an overview of comparative annotation tools, including those written in the years following the mouse genome assembly. These tools provide probabilistic frameworks which combine established single-genome gene prediction approaches \cite{yeh2001computational,gelfand1996gene} with informant data obtained through genomic alignments to improve gene predictions. Notably, all of these tools work only on pairwise alignments and cannot use information extrinsic to this alignment and the underlying input sequences.
 
@@ -141,7 +150,7 @@ As more vertebrate genomes were sequenced, the need for comparative gene predict
 
 For the most part, after the initial mouse genome project, none of these tools have been used on full vertebrate genomes. There are two reasons for this. First, these tools require very careful parameter training which must be performed on every genome in the alignment. Second, these tools require evaluating all pairwise comparisons leading to running times quadratic in the number of genomes. Combined with the overall lower efficacy of comparative prediction vs. transcriptome and proteome sequence alignment approaches, this has led the field of comparative gene finding to languish for the past ten years.
 
-\section{Transcriptome Evidence Based Comparative Annotation}
+\subsection{Transcriptome Evidence Based Comparative Annotation}
 
 None of the annotation programs described above were capable of incorporating extrinsic information, instead relying entirely on sequence composition. In species with sufficient transcriptome data, mapping these data to the assembly generally performs far better at gene finding than the \textit{de-novo} approaches outlined above. 
 
@@ -153,7 +162,7 @@ Another approach is to use alignments of protein sequences instead of transcript
 
 For more distantly related species, approaches that generate profiles of proteins and protein domains may be used. Databases such as InterPro \cite{zdobnov2001interproscan} store precomputed models of protein sequences and motifs that are conserved across long periods of evolutionary history. Genewise \cite{birney2004genewise} can perform gene prediction using a profile-HMM like those stored in InterPro. Additionally, AUGUSTUS-PPX \cite{keller2011novel} is a extension of the AUGUSTUS annotation program that models protein families and combines them with the existing \textit{ab-initio} model.
 
-\section{Genome Annotation Pipelines}
+\subsection{Genome Annotation Pipelines}
 Current annotation paradigms are not comparative. Comparative annotation as a field has been mostly ignored since early efforts due to the sparsity of high quality genome assemblies. The most commonly used annotation pipeline for individual researchers is MAKER2 \cite{cantarel2008maker}. MAKER2 was designed to enable researchers to annotate genome assemblies they produce and not rely on institutional pipelines, and was specifically aimed at non-model and non-vertebrate species including prokaryotes. MAKER2 combines multiple forms of extrinsic evidence with \textit{ab-initio} prediction, and provides a fully automated end-to-end annotation pipeline. MAKER2 can make use of multiple gene prediction tools, including GeneWise, GeneMark, SNAP and AUGUSTUS. MAKER2 also performs repeat masking of the assembly.
 
 However, MAKER2 has drawbacks. It is technically challenging to run the pipeline, and it relies on difficult to use parallel computing paradigms. MAKER2 also requires that all extrinsic evidence exist in the form of sequences, and as such requires that RNA-seq data undergo \textit{de-novo} assembly before use. MAKER2 does not attempt to track orthology relationships, and as such subsequent processing of the gene models is required to determine gene family and protein domain information.
@@ -162,37 +171,37 @@ Most vertebrate annotation sets available right now are produced by large instit
 
 This process of tracking orthology relationships will become increasingly important as the number of assembled vertebrate genomes continues to grow. A systematic framework is required for this, that can track many-to-many orthology relationships. Ensembl has put effort into this with the Compara browser\cite{vilella2009ensemblcompara}.
 
-\section{Transcript Projection}
+\subsection{Transcript Projection}
 
 Transcript projection uses sequence alignments to project the coordinates of an existing annotation in one genome to another genome. This powerful approach leverages high quality annotations in well studied organisms to annotate diverse transcripts in related genomes. Many genes and isoforms are expressed in specific tissue types \cite{gtex2015genotype}, at specific developmental time points, or only in response to specific environmental conditions \cite{peng2011integrative}. Additionally, traditional \textit{ab-initio} gene finding models rely heavily on the signature of protein coding genes, which limits these models ability to predict UTR sequences, non-coding RNAs such as lncRNAs, and pseudogenes. Transcript projection methods can be combined with any available extrinsic information either from the genome in question or related genomes and provide the highest quality annotation as a result \cite{stanke2008using}.
 
 The first tool to perform transcript projection was Projector \cite{meyer2004gene}, which uses a pair hidden Markov model, models exon-intron structure through a pairwise alignment, similar to how tools like TWINSCAN work. However, Projector can make use of the known gene information in one sequence in the alignment to restrict the probability paths to those that match the known gene. A subsequent tool, Annotation Integrated Resource (AIR) \cite{florea2005gene}, introduced the concept of a splice graph, a directed acyclic graphic structure that represents exons as vertices, introns as edges, where isoforms of a gene are paths through this graph. AIR projects transcripts from a reference genome through a syntenic alignment to score the paths in the graph, reducing the large number of combinations that are biologically improbable. 
 
-\subsection{transMap}
+\subsubsection{transMap}
 transMap \cite{stanke2008using}, first developed in conjunction with improvements to AUGUSTUS to model extrinsic information \cite{stanke2004augustus}, relies on whole genome alignments to project existing annotations from one genome to the other genome in the alignment. This process is purely arithmetic, but has proven to be immensely helpful at providing extrinsic information to guide AUGUSTUS and improve on purely sequence based prediction. Compared to methods that incorporate EST alignments, transMap provides both full length transcript information as well as isoform information. transMap provided the biggest benefit to specificity in AUGUSTUS predictions in all cases except in cases where the existing cDNA repertoire for the species in question exceeded the quality of the reference.
 
-\subsection{CESAR}
+\subsubsection{CESAR}
 Coding Exon-Structure Aware Realigner (CESAR) \cite{sharma2016coding} is a tool that projects exons through a whole genome alignment, handling splice site shifts that are a common feature of evolutionary change. CESAR is a straightforward hidden Markov model that takes as input the linear alignment of a single exon to other genomes with a small amount of flanking intronic sequence, and outputs a re-aligned region that accounts for exon frame and evolutionary change. CESAR was able to achieve a nearly 89\% accuracy at realigning splice sites, leading to the number of frameshifts seen when mapping human genes to mouse to drop from 2.7\% to 0.3\%. These spurious frameshifts must be addressed when working with transcript projection methods.
 
-\section{Comparative Augustus}
+\subsection{Comparative Augustus}
 AUGUSTUS recently had a novel objective function parameterization option added that makes use of whole genome alignments to predict coding genes simultaneously in every genome in the alignment \cite{konig2015simultaneous} called Comparative AUGUSTUS or AugustusCGP. With recent updates, training the AugustusCGP model is straight-forward and integrated in the AUGUSTUS binary. In contrast to all previous comparative gene finding tools, AugustusCGP runs linearly in the number of genomes, making the possibility of annotating dozens of genomes computationally tractable. Currently, AugustusCGP relies on a referenced multiple-genome alignment format called MAF, and as such cannot annotate many-many relationships.
 
-\section{CAT}
+\subsection{CAT}
 CAT is a recent annotation pipeline that combines a variety of parameterizations of AUGUSTUS with transMap projections through whole-genome progressiveCactus alignments to produce an annotation set on every genome in the cactus alignment. CAT is an attempt to synthesize together all of the possible methods of genome annotation, relying on transcript projection, transcriptome and proteome alignments, simultaneous gene finding, and single genome gene finding with full length cDNA reads. 
 
-\subsection{Transcript Projection}
+\subsubsection{Transcript Projection}
 Transcript projection methods are inherently noisy, due to a combination of alignment error, assembly error and true evolutionary change. As phylogenetic distance increases, the error rate increases. These errors manifest as small indels, unaligned exons, or broken projection. Broken projection can occur due to contigs that were not joined, or falsely joined. Broken projection can also occur when rearrangements are present in the alignment, leading to a break in the chained alignment. To try and reduce this, CAT uses a special chaining process downstream of the genomic chains for transcript projections that ignores intronic rearrangements.
 
 Due to the many-to-many nature of cactus alignments, transcript projections must be paralog resolved. To do this, CAT utilizes the tool pslCDnaFilter, which implements the localNearBest algorithm. This algorithm runs a sliding window over all alignments of an input transcript, discarding alignments whose score is not within a user defined distance of the highest score in that window. This process helps disambiguate incomplete contig joins or rearrangements from true paralogous alignments. After this, CAT performs a gene rescue process, forcing all transcripts associated with the same gene to be in the same discrete locus in the assembly.
 
-\subsection{AugustusTMR}
+\subsubsection{AugustusTMR}
 
 CAT takes the paralog resolved transcript projections from transMap and runs the protein coding transcripts through a special parameterization of AUGUSTUS up to two times depending on if the current target genome has any transcriptome or proteome data provided. In both parameterizations, AUGUSTUS is given the locus of the transcript with some flanking sequence, and extrinsic hints pointing out the splice junctions transMap found. These splice junctions are filtered for existing within 8bp of a splice in transcript coordinates of the source transcript, reducing false positive splice caused by alignment error. In the second parameterization, AUGUSTUS is once again given the transMap junctions, but also with any available extrinsic evidence in the region. These two parameterizations perform the task of cleaning up the transcript projections by enforcing a coding model, requiring valid start and stop codons, reasonable splice sites and no in-frame stops. This can rescue unaligned exons and shift splice sites, modeling real evolutionary change. This process represents an alternative to the CESAR approach, that takes into account all exons of a transcript simultaneously, along with extrinsic information that CESAR does not have. Additionally, the CAT model is suitable for genes with a 1-many orthology relationship.
 
-\subsection{AugustusPB}
+\subsubsection{AugustusPB}
 CAT also performs single-genome AUGUSTUS if full length transcript sequences are provided. Recent technological advances have led to the possibility of sequencing hundreds of thousands of full length transcript sequences for reasonable costs \cite{korlach2017novo}. Data generated by the IsoSeq protocol provided by Pacific Bioscience (PacBio) \cite{gonzalez2016introduction} can be incorporated into CAT and used to predict alternative isoforms that may use species-specific splice junctions or novel exons. CAT found ~200 exons in the great apes supported by IsoSeq and not supported by the map-over of the human GENCODE annotation. In each species, ~75\% of these exons appear to be species specific, although there are likely false positives due to stochastic expression and differences between the iPSC cell lines used to generate the RNA.
 
-\subsection{Consensus}
+\subsubsection{Consensus}
 
 CAT takes the output transcript set from each of these annotation modes and performs a 'chooser' algorithm, in which the highest scoring transMap, AugustusTM, or AugustusTMR are chosen based on a series of classifiers that evaluate alignment fidelity. After this, AugustusCGP and AugustusPB transcripts are incorporated into the annotation set based on providing novel splices supported by extrinsic evidence.
 
@@ -203,6 +212,13 @@ Recent improvements in genome sequencing technology are dropping the price of ge
 One issue often over looked in the rush to assemble new genomes is assembly quality. Common metrics such as contig N50 and scaffold N50 can obscure serious problems with genome assemblies. Misjoins are common, as well as unrealistic gaps. Problems such as false tandem duplications are widespread in current reference assemblies. Too many tools currently consider genome assemblies as ground truth, without consideration for errors that are inevitably present.
 
 Of particular issue to comparative annotation efforts are indel level errors. These errors vastly inflate the number of transcripts seen as frame-shifted relative to a reference genome, and cause serious problems for gene finding tools leading to premature termination of gene prediction, or the introduction of false introns to bypass a false in-frame stop. Unfortunately, modern assemblies rely heavily on long-read sequencing technologies, which at this point are all inherently noisy. Much effort has been put into reducing these errors, including the introduction of diploid assembly methods \cite{chin2016phased}, which reduce the rate of indel errors in the assembly caused by collapsed heterozygosity. However, our analysis of recent diploid assemblies suggests that indel errors are still problematic and inflate the number of frame-shifting indels, with around 1\% of transcripts frame-shifted in a diploid Zebrafinch assembly compared to the Illumina based assembly of the same species. Additionally, these errors appear in assemblies of haploid cell lines, suggesting that heterozygosity is not the only cause.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{reference-free-diagram}
+\caption{A diagram showing the difference between a reference-free and a reference-biased multiple alignment. In a human-biased multiple alignment, any regions that are deleted in human, or inserted somewhere else in the tree, cannot be aligned.}\label{fig:referencefree}
+\end{center}
+\end{figure}
 
 \begin{table}[ht]
 \centering
