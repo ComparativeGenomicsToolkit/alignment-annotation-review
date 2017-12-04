@@ -354,13 +354,14 @@ MultiZ (autoMZ) & 2004~\cite{tba} & & \checkmark & \checkmark & Multiple alignme
 ABA & 2004~\cite{aBruijn} & & & & Aligner based on the concept of A-Bruijn graphs. \\
 \hline
 % TODO(joel): original Mauve?
+% TODO(joel): FSA? don't really feel like putting a bunch of colinear aligners in here.
 EPO & 2008~\cite{epo, ortheus} & & * & & Graph-based aligner allowing duplications, and optionally producing ancestral reconstructions. \\
 \hline
-VISTA-Lagan (SuperMap) & 2009~\cite{vistaLagan} & & & & asfdso \\
+VISTA-Lagan (SuperMap) & 2009~\cite{vistaLagan} & * & & & Progressive aligner based on Shuffle-LAGAN \cite{shuffleLagan}. \\
 \hline
 progressiveMauve & 2010~\cite{progressivemauve} & & \checkmark & & Progressive aligner that attempts to remove anchors causing small rearrangements by optimizing a breakpoint-weighted score. \\
 \hline
-Cactus & 2011~\cite{cactusGenomeRes} & & & & adsfdsfio \\
+Cactus & 2011~\cite{cactusGenomeRes} & & & & Graph-based aligner that attempts to remove anchors representing small rearrangements. \\
 \hline
 \end{tabular}
 \caption{\label{tab:multiple_genome_alignment}Multiple genome alignment tools.}

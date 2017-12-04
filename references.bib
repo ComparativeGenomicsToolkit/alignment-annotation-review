@@ -1751,3 +1751,22 @@ title = {{Multiple whole-genome alignments without a reference organism}},
 volume = {19},
 year = {2009}
 }
+
+@article{shuffleLagan,
+abstract = {MOTIVATION: To compare entire genomes from different species, biologists increasingly need alignment methods that are efficient enough to handle long sequences, and accurate enough to correctly align the conserved biological features between distant species. The two main classes of pairwise alignments are global alignment, where one string is transformed into the other, and local alignment, where all locations of similarity between the two strings are returned. Global alignments are less prone to demonstrating false homology as each letter of one sequence is constrained to being aligned to only one letter of the other. Local alignments, on the other hand, can cope with rearrangements between non-syntenic, orthologous sequences by identifying similar regions in sequences; this, however, comes at the expense of a higher false positive rate due to the inability of local aligners to take into account overall conservation maps. RESULTS: In this paper we introduce the notion of glocal alignment, a combination of global and local methods, where one creates a map that transforms one sequence into the other while allowing for rearrangement events. We present Shuffle-LAGAN, a glocal alignment algorithm that is based on the CHAOS local alignment algorithm and the LAGAN global aligner, and is able to align long genomic sequences. To test Shuffle-LAGAN we split the mouse genome into BAC-sized pieces, and aligned these pieces to the human genome. We demonstrate that Shuffle-LAGAN compares favorably in terms of sensitivity and specificity with standard local and global aligners. From the alignments we conclude that about 9{\%} of human/mouse homology may be attributed to small rearrangements, 63{\%} of which are duplications.},
+annote = {Adaptation of pairwise global aligner LAGAN to allow rearrangements.
+
+Reference-biased (misses duplications in reference).},
+author = {Brudno, Michael and Malde, Sanket and Poliakov, Alexander and Do, Chuong B. and Couronne, Olivier and Dubchak, Inna and Batzoglou, Serafim},
+doi = {10.1093/bioinformatics/btg1005},
+file = {:Users/joel/Library/Application Support/Mendeley Desktop/Downloaded/Brudno et al. - 2003 - Glocal alignment Finding rearrangements during alignment.pdf:pdf;:Users/joel/Library/Application Support/Mendeley Desktop/Downloaded/Brudno et al. - 2003 - Glocal alignment Finding rearrangements during alignment(2).pdf:pdf},
+isbn = {1367-4803 (Print)$\backslash$n1367-4803 (Linking)},
+issn = {13674803},
+journal = {Bioinformatics},
+mendeley-groups = {Alignment},
+number = {SUPPL. 1},
+pmid = {12855437},
+title = {{Glocal alignment: Finding rearrangements during alignment}},
+volume = {19},
+year = {2003}
+}
