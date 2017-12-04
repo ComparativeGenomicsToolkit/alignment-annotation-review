@@ -40,7 +40,7 @@ The traditional dynamic-programming algorithms require $O(nm)$ time and space, w
 Another consideration is how genome rearrangements complicate the alignment problem.
 Smith-Waterman and Needleman-Wunsch both produce alignments which have \emph{fixed order-and-orientation}, that is, insertions, deletions, and substitutions are the only allowed edit operations.
 When looking at short or well-conserved sequences, like genes, this requirement is usually fulfilled.
-But at large evolutionary distances, genomes almost always contain rearrangements with respect to each other---inversions, transpositions, and duplications all cause breaks in order and orientation that cannot be captured under constant order and orientation.
+But at large evolutionary distances, genomes almost always contain more complex rearrangements with respect to each other---inversions, transpositions, and duplications all cause breaks in order and orientation that cannot be captured under constant order and orientation.
 
 One obvious solution to these problems is to use a fast approximate local alignment algorithm (like BLAST~\cite{blast}) and simply use the collection of all local alignments that it finds as the whole-genome alignment.
 However, the naïve local alignment approach has its own problems.
@@ -93,7 +93,8 @@ In the mid- to late-2000s the first methods for reference-free multiple genome a
 The EPO pipeline especially began to see wide use as part of the Ensembl genome browser~\cite{ensembl2017}.
 While impressive, these pipelines left significant room for improvement, especially with regard to finding small-scale order-and-orientation-breaking rearrangements~\cite{epo}.
 
-\subsection{Genome histories}
+\subsection{Reference-free alignment}
+\subsubsection{Genome histories}
 Alignments are conventionally described as a set of columns, each containing a set of bases that are all related to each other by some alignment relation $\sim$.
 Usually this relation represents orthology rather than homology.
 However, in that case, this model falls apart when considering reference-free alignments with multiple copies per genome.
@@ -117,21 +118,56 @@ A genome history can be \emph{projected} onto any genome to create a more conven
 These projected, reference-based alignments are collections of columns, each containing exactly one reference base, where every base in the column is orthologous to the reference base, but \emph{not} necessarily orthologous to every other base in the column.
 These projected alignments are useful because they can be represented in conventional formats like MAF, and used as input to existing analysis tools.
 
-\subsection{Reference-free alignment}
-
 \subsubsection{HAL format}
+% TODO(joel): this is underselling it a bit. The key point here---one that I don't think is actually brought up properly anywhere in the literature---is that block formats like MAF are not only inefficient for reference-free alignments, they fundamentally can't represent them without additional information (like column/block trees).
+One difficulty with producing reference-free alignments is that conventional text-based alignment formats like MAF cannot be efficiently randomly accessed from every genome. The Hierarchical Alignment Format~\cite{hal} (HAL) was designed to be an efficiently accessible format representing a genome history, including any ancestral reconstructions available.
 
-\subsection{Whole genome alignment tools}
-lastz, last, blastz, etc
-
+HAL allows projection from this genome history onto any reference genome (including ancestors), creating a multiple genome alignment showing what is orthologous (related by $\sim_o$) to every base in that genome. This projection can be output in a traditional format like MAF, or simply used on-demand to visualize the alignment~\cite{assemblyHub} or as part of downstream analysis pipelines.
+% \subsection{Local alignment tools}
+% don't think much detail about local alignment really belongs in a paper about genome alignment. Maybe worth a quick mention?
 \subsection{Multiple genome alignment pipelines}
+\subsubsection{MultiZ}
+MultiZ~\cite{tba} is a reference-biased multiple genome alignment tool originally developed as part of the TBA~\cite{tba} program.
+% TODO(joel): might need to come up with a citation here to justify that pretty much no one uses TBA.
+Because TBA is restricted to producing colinear multiple alignments, MultiZ sees much wider use than TBA itself.
+It is the tool currently used to generate the multiple alignments on the UCSC Genome Browser~\cite{ucscbrowser}.
 
-\subsubsection{multiz}
-
-\subsubsection{cactus}
-
+MultiZ, technically speaking, is just a method of aligning alignments.
+When MultiZ alignments are produced, usually pairwise alignments from a given reference to all other species are generated using a local alignment tool, and then the ``autoMZ'' command is used to progressively align together these pairwise alignments using a guide tree.
+% TODO(joel): mention Gil's chain-breaking thing? can't find the paper
+\subsubsection{EPO}
+The Enredo-Pecan-Ortheus (EPO) pipeline~\cite{epo, ortheus} is a reference-free multiple alignment pipeline that, unlike TBA, can handle rearrangements.
+It is in wide use, being one of the main multiple alignments available on the Ensembl genome browser~\cite{Aken01012016}.
+The process begins with a relatively sparse set of anchor points that are known homologies within a set of genomes.
+The Enredo algorithm builds a sequence graph from these anchors, and through various operations, attempts to remove homologies that are likely to be spurious or uninteresting.
+The Pecan algorithm then fills in the gaps between the sparse anchors selected by the Enredo algorithm.
+% TODO(joel): the bit that mentions this is buried in the supplement. could also cite the Ensembl docs here.
+While EPO is in principle reference-free, the method that is currently used to generate its anchors is reference-biased~\cite{epo}.
+% TODO(joel): mention ABA? should go here in theory, but not sure it worked on any largish data.
+\subsubsection{Cactus}
+Cactus uses an overall strategy similar in principle to the anchoring approach described above.
+The notion of a \emph{cactus graph}~\cite{cactusJCompBio} is used to create a filtered, high-confidence set of anchors.
+The unaligned space between anchors is then aligned using a sensitive pair-HMM to create a final multiple alignment.
+The first step of the Cactus process is to take small, uncertain local alignments captured by LASTZ~\cite{lastz} (which is similar to BLAST~\cite{blast}), and combine them naïvely to create a multiple alignment.
+Given the typical evolutionary distances involved, LASTZ is tuned to be very sensitive, but not very precise.
+The low precision means that the local alignments may be spurious (a small seed happened to match, and happened to be extended, in a region which is not truly homologous).
+The local alignments may also conflict---that is, several alignments may disagree on how to align a particular region.
+These inconsistencies and spurious alignments will manifest as tiny rearrangements---breaks in order and orientation---in the alignment.
+Using the Cactus Alignment Filter (CAF) algorithm defined in~\cite{cactusGenomeRes}, these small rearrangements, which are unlikely to be biological, in the multiple alignment are discovered and removed, producing an alignment that only contains rearrangements longer than a certain length.
+After this process, the cactus graph contains anchors that are very likely to represent true regions of homology, but will have unaligned regions of homology between the anchors, which local alignment was not sensitive enough to pick up, or which were deleted in the CAF process.
+The Base Alignment Refinement (BAR) process~\cite{cactusGenomeRes} fills in these unaligned but homologous regions.
 \subsubsection{progressiveCactus}
-
+The version of Cactus published in 2011~\cite{cactusGenomeRes} was highly effective at aligning a small number of genomes in the tens to hundreds of megabases~\cite{Earl2014}, but because it scaled quadratically with the total size of all genomes in the alignment problem, it could not efficiently create the alignments we needed, which require us to align hundreds of vertebrate-sized genomes.
+Recently a progressive-alignment extension (called progressiveCactus) to the original Cactus algorithm has been developed, which can efficiently scale to hundreds of genomes.
+The progressiveCactus process works as follows.
+First, the problem is decomposed into several subproblems using an input guide tree.
+There is one subproblem per internal node in the guide tree.
+Each subproblem involves aligning several genomes using the traditional Cactus process: the \emph{ingroup} (children of the internal node) and \emph{outgroup} (non-descendants of the internal node) genomes for the subproblem.
+This subproblem alignment is then used to infer a ``reference'' assembly that contains all blocks involving an ingroup.
+The blocks are arranged into sequences according to an algorithm that attempts to maximize the consistency between the order and orientation of all the sequences in the alignment~\cite{referenceAlg}.
+The base-level sequence for these blocks is then generated by finding the ML base for each column using the guide tree.
+This assembly is a reconstruction of the ancestral genome at that node, which functions as a consensus sequence for the ingroups below it.
+The reference assembly is then fed as input into subproblems further up the guide tree.
 \section{Comparative annotation}
 \subsection{Introduction}
 Genome annotation is the process of finding functional elements in a genome assembly. Generally, these take the form of protein coding genes, but can also include non-coding transcripts\cite{harrow2012gencode}, chromatin configuration, DNase hypersensitivity\cite{encode2004encode}, CpG islands, and population variation \cite{sherry2001dbsnp}.
@@ -286,6 +322,32 @@ CESAR & 2016 \cite{sharma2016coding} & Uses a HMM to adjust splice sites in whol
 \hline
 \end{tabular}
 \caption{\label{tab:history_comparative}Overview of transcript projection tools.}
+\end{table}
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|l|l|p{12cm}|}
+\hline
+Program & Year & Description \\
+\hline
+Chains and nets & 2003~\cite{evoCauldron} & foo \\
+\hline
+\end{tabular}
+\caption{\label{tab:pairwise_genome_alignment}Pairwise genome alignment tools.}
+\end{center}
+\end{table}
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|l|l|p{12cm}|}
+\hline
+Program & Year & Description \\
+\hline
+TBA & 2004~\cite{tba} & bar \\
+\hline
+\end{tabular}
+\caption{\label{tab:pairwise_genome_alignment}Pairwise genome alignment tools.}
+\end{center}
 \end{table}
 
 \clearpage
