@@ -126,8 +126,7 @@ HAL allows projection from this genome history onto any reference genome (includ
 \subsubsection{MultiZ}
 MultiZ~\cite{tba} is a reference-biased multiple genome alignment tool originally developed as part of the TBA~\cite{tba} program.
 % TODO(joel): might need to come up with a citation here to justify that pretty much no one uses TBA.
-% TODO(joel): there is supposedly an unpublished version of TBA that isn't colinear--might be worth mentioning that here.
-Because TBA is restricted to producing colinear multiple alignments, MultiZ sees much wider use than TBA itself.
+Because TBA is restricted to producing colinear multiple alignments (though there exists an unpublished version that removes that restriction), MultiZ sees much wider use than TBA itself.
 It is the tool currently used to generate the multiple alignments on the UCSC Genome Browser~\cite{ucscbrowser}.
 
 MultiZ, technically speaking, is just a method of aligning alignments.
@@ -341,7 +340,7 @@ CESAR & 2016 \cite{sharma2016coding} & Uses a HMM to adjust splice sites in whol
 \hline
 Program & Year & Description \\
 \hline
-Chains and nets & 2003~\cite{evoCauldron} & foo \\
+Chains and nets & 2003~\cite{evoCauldron} & Combines fragmented local alignments into larger, high-scoring "chains", which are arranged into hierarchical "nets" representing rearrangements. \\
 \hline
 \end{tabular}
 \caption{\label{tab:pairwise_genome_alignment}Pairwise genome alignment tools.}
