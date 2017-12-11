@@ -2,6 +2,9 @@
 \title{Whole Genome Alignment And Comparative Annotation}
 \usepackage{indentfirst}
 \usepackage{amssymb}
+
+\newcommand{\tabref}[1]{\textbf{Table~\ref{#1}}}
+
 \author[1,*]{Joel Armstrong}
 \author[1,*]{Ian Fiddes}
 \author[1,]{Mark Diekhans}
@@ -120,9 +123,17 @@ These projected alignments are useful because they can be represented in convent
 One difficulty with producing reference-free alignments is that conventional text-based alignment formats like MAF cannot be efficiently randomly accessed from every genome. The Hierarchical Alignment Format~\cite{hal} (HAL) was designed to be an efficiently accessible format representing a genome history, including any ancestral reconstructions available.
 
 HAL allows projection from this genome history onto any reference genome (including ancestors), creating a multiple genome alignment showing what is orthologous (related by $\sim_o$) to every base in that genome. This projection can be output in a traditional format like MAF, or simply used on-demand to visualize the alignment~\cite{assemblyHub} or as part of downstream analysis pipelines.
-% \subsection{Local alignment tools}
+\subsection{Local alignment tools}
 % don't think much detail about local alignment really belongs in a paper about genome alignment. Maybe worth a quick mention?
+% This opens a rabbit-hole which will end up consuming more text than it's worth, I haven't mentioned obvious ones like BLAT, important ones like PatternHunter.
+Because genome alignment tools rely heavily on local alignments of some form, local alignment tools play a large role in genome alignments.
+Since finding optimal local alignments has prohibitive time and memory requirements, approximate local aligners in the vein of BLAST~\cite{blast} are used almost exclusively.
+BLASTZ~\cite{blastz} and its successor LASTZ~\cite{lastz} are local aligners tuned to be more sensitive than normal BLAST, using PatternHunter-esque spaced seeds~\cite{patternHunter} while also allowing transitions.
+LAST~\cite{last}
+% Pending discussion, the discussion about pairwise genome alignment tools above should be moved into their own section here.
 \subsection{Multiple genome alignment pipelines}
+An overview of popular or historically significant alignment multiple genome alignment tools is given in \tabref{tab:multiple_genome_alignment}.
+In the following sections, we detail some of the most significant pipelines that are still in wide use.
 \subsubsection{MultiZ}
 MultiZ~\cite{tba} is a reference-biased multiple genome alignment tool originally developed as part of the TBA~\cite{tba} program.
 % TODO(joel): might need to come up with a citation here to justify that pretty much no one uses TBA.
@@ -130,7 +141,7 @@ Because TBA is restricted to producing colinear multiple alignments (though ther
 It is the tool currently used to generate the multiple alignments on the UCSC Genome Browser~\cite{ucscbrowser}.
 
 MultiZ, technically speaking, is just a method of aligning alignments.
-When MultiZ alignments are produced, usually pairwise alignments from a given reference to all other species are generated using a local alignment tool, and then the ``autoMZ'' command is used to progressively align together these pairwise alignments using a guide tree.
+When MultiZ alignments are produced, usually pairwise alignments from a given reference to all other species are generated using a local alignment tool, sometimes post-processed using chains and nets, and then the ``autoMZ'' command is used to progressively align together these pairwise alignments using a guide tree.
 % TODO(joel): mention Gil's chain-breaking thing? can't find the paper
 \subsubsection{EPO}
 The Enredo-Pecan-Ortheus (EPO) pipeline~\cite{epo, ortheus} is a reference-free multiple alignment pipeline that, unlike TBA, can handle rearrangements.
