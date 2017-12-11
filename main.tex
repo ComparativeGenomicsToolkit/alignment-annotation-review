@@ -340,7 +340,11 @@ CESAR & 2016 \cite{sharma2016coding} & Uses a HMM to adjust splice sites in whol
 \hline
 Program & Year & Description \\
 \hline
+MUMmer & 1999~\cite{mummer} & Fast aligner relying on maximal unique matches from a query sequence to a reference sequence. Recent versions remove the colinearity restriction of the first version and improve the speed. \\
+\hline
 Chains and nets & 2003~\cite{evoCauldron} & Combines fragmented local alignments into larger, high-scoring "chains", which are arranged into hierarchical "nets" representing rearrangements. \\
+\hline
+Shuffle-LAGAN & 2003~\cite{shuffleLagan} & A "glocal" (global + local) aligner that is less restrictive than global alignment, but still enforces monotonicity of the blocks relative to one sequence. \\
 \hline
 \end{tabular}
 \caption{\label{tab:pairwise_genome_alignment}Pairwise genome alignment tools.}
